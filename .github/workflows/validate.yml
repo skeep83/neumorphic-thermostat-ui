@@ -1,4 +1,4 @@
-name: Validate Repository
+name: Validate Plugin
 
 on:
   push:
@@ -9,29 +9,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Check hacs.json exists
-        run: |
-          if [ ! -f "hacs.json" ]; then
-            echo "hacs.json not found!"
-            exit 1
-          fi
-      - name: Validate hacs.json for Plugin (Dashboard)
+      - name: Validate hacs.json
         run: |
           python3 << 'EOF'
           import json
           import os
+          
+          # Validate hacs.json
           with open('hacs.json', 'r') as f:
             data = json.load(f)
-            assert 'content_type' in data, "content_type missing"
-            assert data['content_type'] == 'plugin', f"content_type must be 'plugin', got '{data.get('content_type')}'"
-            assert 'name' in data, "name missing"
-            print(f"✓ hacs.json is valid for Plugin (Dashboard): {data['name']}")
+            
+          # Check required fields
+          assert 'name' in data, "Missing 'name'"
+          assert 'content_type' in data, "Missing 'content_type'"
+          assert data['content_type'] == 'plugin', f"content_type must be 'plugin', got '{data['content_type']}'"
           
-          # Check for .js file in dist/
+          # Check for JS files
           if os.path.isdir('dist'):
             js_files = [f for f in os.listdir('dist') if f.endswith('.js')]
-            if not js_files:
-              raise AssertionError("No .js files found in dist/")
-            print(f"✓ Found JS files in dist/: {js_files}")
+            assert len(js_files) > 0, "No .js files found in dist/"
+            print(f"✓ Found {len(js_files)} JS file(s) in dist/")
+          
+          print(f"✓ Repository is valid as Plugin (Dashboard)")
+          print(f"  Name: {data['name']}")
+          print(f"  Type: {data['content_type']}")
           EOF
+
 
