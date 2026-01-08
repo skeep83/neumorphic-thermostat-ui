@@ -3,6 +3,9 @@
  * A beautiful neumorphic thermostat card for Home Assistant
  */
 
+// Include the editor
+import './neumorphic-thermostat-ui-editor';
+
 interface CardConfig {
   entity: string;
   name?: string;
