@@ -95,7 +95,7 @@ const ThermostatCard = ({
       <div className="relative flex items-center justify-center my-8">
         {/* Outer Ring */}
         <div
-          className={`absolute w-56 h-56 rounded-full ${getRingClass()} transition-all duration-500`}
+          className={`absolute w-56 h-56 rounded-full ${getRingClass()} transition-all duration-500 ${mode !== "off" ? "animate-ring-pulse" : ""}`}
           style={{
             maskImage: `conic-gradient(from 135deg, black 0deg, black ${getProgress()}deg, transparent ${getProgress()}deg)`,
             WebkitMaskImage: `conic-gradient(from 135deg, black 0deg, black ${getProgress()}deg, transparent ${getProgress()}deg)`,
@@ -103,15 +103,47 @@ const ThermostatCard = ({
         />
 
         {/* Inner Circle */}
-        <div className="neu-concave w-48 h-48 rounded-full flex flex-col items-center justify-center relative z-10">
+        <div className="neu-concave w-48 h-48 rounded-full flex flex-col items-center justify-center relative z-10 overflow-hidden">
+          {/* Heating Animation */}
+          {mode === "heating" && (
+            <>
+              <div className="absolute inset-0 shimmer-effect rounded-full" />
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <div
+                    key={i}
+                    className="w-1 h-4 bg-heating rounded-full heat-particle opacity-0"
+                    style={{ animationDelay: `${i * 0.3}s` }}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Cooling Animation */}
+          {mode === "cooling" && (
+            <>
+              <div className="absolute inset-0 shimmer-effect-cool rounded-full" />
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-4">
+                {[0, 1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="w-1.5 h-1.5 bg-cooling rounded-full cool-particle opacity-0"
+                    style={{ animationDelay: `${i * 0.4}s` }}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
           {/* Current Temperature */}
-          <span className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
+          <span className="text-xs text-muted-foreground uppercase tracking-wider mb-1 relative z-10">
             Current
           </span>
-          <span className="text-sm text-muted-foreground">{currentTemp}°</span>
+          <span className="text-sm text-muted-foreground relative z-10">{currentTemp}°</span>
 
           {/* Target Temperature */}
-          <div className="flex items-baseline mt-2">
+          <div className="flex items-baseline mt-2 relative z-10">
             <span className={`text-5xl font-light ${getModeColor()} transition-colors`}>
               {targetTemp}
             </span>
