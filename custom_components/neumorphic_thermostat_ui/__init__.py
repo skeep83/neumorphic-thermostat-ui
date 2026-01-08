@@ -1,1 +1,0 @@
-"""Neumorphic Thermostat UI integration."""
