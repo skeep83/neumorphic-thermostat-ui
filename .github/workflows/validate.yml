@@ -15,13 +15,23 @@ jobs:
             echo "hacs.json not found!"
             exit 1
           fi
-      - name: Validate hacs.json
+      - name: Validate hacs.json for Plugin (Dashboard)
         run: |
           python3 << 'EOF'
           import json
+          import os
           with open('hacs.json', 'r') as f:
             data = json.load(f)
             assert 'content_type' in data, "content_type missing"
+            assert data['content_type'] == 'plugin', f"content_type must be 'plugin', got '{data.get('content_type')}'"
             assert 'name' in data, "name missing"
-            print(f"✓ Repository is valid: {data['name']}")
+            print(f"✓ hacs.json is valid for Plugin (Dashboard): {data['name']}")
+          
+          # Check for .js file in dist/
+          if os.path.isdir('dist'):
+            js_files = [f for f in os.listdir('dist') if f.endswith('.js')]
+            if not js_files:
+              raise AssertionError("No .js files found in dist/")
+            print(f"✓ Found JS files in dist/: {js_files}")
           EOF
+
