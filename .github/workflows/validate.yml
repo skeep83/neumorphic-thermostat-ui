@@ -1,0 +1,27 @@
+name: Validate Repository
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check hacs.json exists
+        run: |
+          if [ ! -f "hacs.json" ]; then
+            echo "hacs.json not found!"
+            exit 1
+          fi
+      - name: Validate hacs.json
+        run: |
+          python3 << 'EOF'
+          import json
+          with open('hacs.json', 'r') as f:
+            data = json.load(f)
+            assert 'content_type' in data, "content_type missing"
+            assert 'name' in data, "name missing"
+            print(f"✓ Repository is valid: {data['name']}")
+          EOF
