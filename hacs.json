@@ -1,6 +1,6 @@
 {
   "name": "Neumorphic Thermostat UI",
-  "content_type": "plugin",
+  "content_type": "dashboard",
   "description": "A beautiful neumorphic-style thermostat UI card for Home Assistant",
   "homeassistant": "2024.1.0",
   "issues": "https://github.com/skeep83/neumorphic-thermostat-ui/issues",
