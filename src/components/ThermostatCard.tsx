@@ -104,20 +104,45 @@ const ThermostatCard = ({
 
         {/* Inner Circle */}
         <div className="neu-concave w-48 h-48 rounded-full flex flex-col items-center justify-center relative z-10 overflow-hidden">
-          {/* Heating Animation */}
+          {/* Heating Flame Animation */}
           {mode === "heating" && (
-            <>
-              <div className="absolute inset-0 shimmer-effect rounded-full" />
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3">
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flame-container">
+              {/* Main Flames */}
+              <div className="relative flex items-end justify-center gap-1">
+                {/* Left small flame */}
+                <div className="relative">
+                  <div className="flame flame-outer w-4 h-8 opacity-80" style={{ animationDelay: '0.2s' }} />
+                  <div className="flame flame-inner w-2.5 h-5 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.1s' }} />
+                </div>
+                
+                {/* Center large flame */}
+                <div className="relative -mx-1">
+                  <div className="flame flame-outer w-7 h-14" />
+                  <div className="flame flame-inner w-5 h-10 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.15s' }} />
+                  <div className="flame flame-core w-3 h-6 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.05s' }} />
+                </div>
+                
+                {/* Right small flame */}
+                <div className="relative">
+                  <div className="flame flame-outer w-4 h-8 opacity-80" style={{ animationDelay: '0.3s' }} />
+                  <div className="flame flame-inner w-2.5 h-5 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.25s' }} />
+                </div>
+              </div>
+              
+              {/* Embers */}
+              <div className="absolute -top-2 left-1/2 -translate-x-1/2 flex gap-3">
                 {[0, 1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className="w-1 h-4 bg-heating rounded-full heat-particle opacity-0"
-                    style={{ animationDelay: `${i * 0.3}s` }}
+                    className="w-1 h-1 rounded-full bg-heating ember"
+                    style={{ 
+                      animationDelay: `${i * 0.3}s`,
+                      left: `${(i - 2) * 6}px`
+                    }}
                   />
                 ))}
               </div>
-            </>
+            </div>
           )}
 
           {/* Cooling Animation */}

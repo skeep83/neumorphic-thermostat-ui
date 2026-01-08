@@ -198,16 +198,57 @@
     }
   }
 
-  @keyframes heat-wave {
-    0% {
-      transform: translateY(0) scaleY(1);
-      opacity: 0;
+  /* Flame Animation */
+  @keyframes flame {
+    0%, 100% {
+      transform: scaleY(1) scaleX(1) translateY(0);
+      opacity: 0.9;
     }
-    20% {
+    25% {
+      transform: scaleY(1.2) scaleX(0.9) translateY(-3px);
+      opacity: 1;
+    }
+    50% {
+      transform: scaleY(0.9) scaleX(1.1) translateY(0);
+      opacity: 0.85;
+    }
+    75% {
+      transform: scaleY(1.15) scaleX(0.95) translateY(-2px);
+      opacity: 0.95;
+    }
+  }
+
+  @keyframes flame-flicker {
+    0%, 100% {
+      opacity: 0.7;
+      transform: scale(1) rotate(-2deg);
+    }
+    33% {
+      opacity: 1;
+      transform: scale(1.1) rotate(2deg);
+    }
+    66% {
+      opacity: 0.8;
+      transform: scale(0.95) rotate(-1deg);
+    }
+  }
+
+  @keyframes flame-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(var(--heating) / 0.4), 0 0 40px hsl(var(--heating) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(var(--heating) / 0.6), 0 0 60px hsl(var(--heating) / 0.3);
+    }
+  }
+
+  @keyframes ember-rise {
+    0% {
+      transform: translateY(0) scale(1);
       opacity: 0.8;
     }
     100% {
-      transform: translateY(-20px) scaleY(1.5);
+      transform: translateY(-30px) scale(0.3);
       opacity: 0;
     }
   }
@@ -239,23 +280,36 @@
     animation: ring-pulse 2s ease-in-out infinite;
   }
 
-  .heat-particle {
-    animation: heat-wave 1.5s ease-out infinite;
+  /* Flame Classes */
+  .flame {
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flame 0.8s ease-in-out infinite;
+  }
+
+  .flame-outer {
+    background: linear-gradient(to top, hsl(25 100% 50%), hsl(35 100% 55%) 40%, hsl(45 100% 60%) 70%, transparent);
+  }
+
+  .flame-inner {
+    background: linear-gradient(to top, hsl(30 100% 60%), hsl(45 100% 70%) 50%, hsl(55 100% 80%) 80%, transparent);
+    animation: flame-flicker 0.6s ease-in-out infinite;
+  }
+
+  .flame-core {
+    background: linear-gradient(to top, hsl(45 100% 85%), hsl(55 100% 95%) 60%, transparent);
+    animation: flame-flicker 0.4s ease-in-out infinite reverse;
+  }
+
+  .flame-container {
+    animation: flame-glow 1.5s ease-in-out infinite;
+  }
+
+  .ember {
+    animation: ember-rise 1.5s ease-out infinite;
   }
 
   .cool-particle {
     animation: cool-particle 2s ease-out infinite;
-  }
-
-  .shimmer-effect {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      hsl(var(--heating) / 0.3) 50%,
-      transparent 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s linear infinite;
   }
 
   .shimmer-effect-cool {
