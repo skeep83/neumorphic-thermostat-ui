@@ -1,0 +1,10 @@
+{
+  "documentation": "https://github.com/skeep83/neumorphic-thermostat-ui",
+  "domain": "neumorphic-thermostat-ui",
+  "name": "Neumorphic Thermostat UI",
+  "codeowners": [
+    "@skeep83"
+  ],
+  "requirements": [],
+  "version": "1.0.0"
+}
