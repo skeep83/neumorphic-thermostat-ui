@@ -1,11 +1,23 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import ThermostatCard from "@/components/ThermostatCard";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background flex items-center justify-center p-8">
+      <div className="flex flex-col items-center gap-8">
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-semibold text-foreground mb-2">
+            Home Assistant
+          </h1>
+          <p className="text-muted-foreground text-sm">
+            Neumorphic Thermostat Control
+          </p>
+        </div>
+        
+        <ThermostatCard 
+          roomName="Living Room"
+          initialTemp={22}
+          currentTemp={20}
+        />
       </div>
     </div>
   );
