@@ -6,5 +6,11 @@
     "@skeep83"
   ],
   "version": "1.0.0",
-  "homeassistant": "2024.1.0"
+  "homeassistant": "2024.1.0",
+  "resources": [
+    {
+      "url": "/hacsfiles/neumorphic-thermostat-ui/neumorphic-thermostat-ui.js?hacstag=1.0.0",
+      "type": "module"
+    }
+  ]
 }
