@@ -2,95 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Neumorphic Base Colors */
+    --background: 220 15% 91%;
+    --foreground: 220 20% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 91%;
+    --card-foreground: 220 20% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 91%;
+    --popover-foreground: 220 20% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 220 20% 30%;
+    --primary-foreground: 220 15% 95%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 220 10% 85%;
+    --secondary-foreground: 220 20% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 10% 85%;
+    --muted-foreground: 220 15% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 10% 85%;
+    --accent-foreground: 220 20% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 85%;
+    --input: 220 15% 85%;
+    --ring: 220 20% 30%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Neumorphic Specific */
+    --neu-light: 220 15% 98%;
+    --neu-dark: 220 20% 78%;
+    
+    /* Temperature Colors */
+    --heating: 25 95% 55%;
+    --heating-glow: 25 100% 65%;
+    --cooling: 200 85% 55%;
+    --cooling-glow: 200 100% 65%;
+    --off-state: 220 10% 65%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Shadows */
+    --shadow-light: 0 0% 100%;
+    --shadow-dark: 220 20% 75%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 220 20% 12%;
+    --foreground: 220 15% 90%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 20% 12%;
+    --card-foreground: 220 15% 90%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 20% 12%;
+    --popover-foreground: 220 15% 90%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 220 15% 90%;
+    --primary-foreground: 220 20% 12%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 220 15% 18%;
+    --secondary-foreground: 220 15% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 220 15% 18%;
+    --accent-foreground: 220 15% 90%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 220 15% 70%;
+
+    --neu-light: 220 15% 18%;
+    --neu-dark: 220 25% 8%;
+    
+    --shadow-light: 220 15% 18%;
+    --shadow-dark: 220 25% 6%;
   }
 }
 
@@ -100,6 +94,130 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+@layer components {
+  /* Neumorphic Effects */
+  .neu-flat {
+    background: hsl(var(--background));
+    box-shadow: 
+      8px 8px 16px hsl(var(--shadow-dark)),
+      -8px -8px 16px hsl(var(--shadow-light));
+  }
+
+  .neu-convex {
+    background: linear-gradient(145deg, hsl(var(--neu-light)), hsl(var(--neu-dark)));
+    box-shadow: 
+      8px 8px 16px hsl(var(--shadow-dark)),
+      -8px -8px 16px hsl(var(--shadow-light));
+  }
+
+  .neu-concave {
+    background: linear-gradient(145deg, hsl(var(--neu-dark)), hsl(var(--neu-light)));
+    box-shadow: 
+      inset 6px 6px 12px hsl(var(--shadow-dark)),
+      inset -6px -6px 12px hsl(var(--shadow-light));
+  }
+
+  .neu-pressed {
+    background: hsl(var(--background));
+    box-shadow: 
+      inset 4px 4px 8px hsl(var(--shadow-dark)),
+      inset -4px -4px 8px hsl(var(--shadow-light));
+  }
+
+  .neu-button {
+    background: linear-gradient(145deg, hsl(var(--neu-light)), hsl(var(--neu-dark)));
+    box-shadow: 
+      5px 5px 10px hsl(var(--shadow-dark)),
+      -5px -5px 10px hsl(var(--shadow-light));
+    transition: all 0.15s ease;
+  }
+
+  .neu-button:hover {
+    box-shadow: 
+      6px 6px 12px hsl(var(--shadow-dark)),
+      -6px -6px 12px hsl(var(--shadow-light));
+  }
+
+  .neu-button:active {
+    box-shadow: 
+      inset 4px 4px 8px hsl(var(--shadow-dark)),
+      inset -4px -4px 8px hsl(var(--shadow-light));
+  }
+
+  /* Temperature Ring */
+  .temp-ring {
+    background: conic-gradient(
+      from 135deg,
+      transparent 0deg,
+      transparent 90deg,
+      hsl(var(--heating)) 90deg,
+      hsl(var(--heating-glow)) 180deg,
+      hsl(var(--heating)) 270deg,
+      transparent 270deg
+    );
+  }
+
+  .temp-ring-cooling {
+    background: conic-gradient(
+      from 135deg,
+      transparent 0deg,
+      transparent 90deg,
+      hsl(var(--cooling)) 90deg,
+      hsl(var(--cooling-glow)) 180deg,
+      hsl(var(--cooling)) 270deg,
+      transparent 270deg
+    );
+  }
+
+  .temp-ring-off {
+    background: conic-gradient(
+      from 135deg,
+      transparent 0deg,
+      transparent 90deg,
+      hsl(var(--off-state)) 90deg,
+      hsl(var(--off-state) / 0.7) 180deg,
+      hsl(var(--off-state)) 270deg,
+      transparent 270deg
+    );
+  }
+
+  /* Glow Effects */
+  .heating-glow {
+    box-shadow: 0 0 40px hsl(var(--heating) / 0.4);
+  }
+
+  .cooling-glow {
+    box-shadow: 0 0 40px hsl(var(--cooling) / 0.4);
+  }
+}
+
+@layer utilities {
+  .text-heating {
+    color: hsl(var(--heating));
+  }
+
+  .text-cooling {
+    color: hsl(var(--cooling));
+  }
+
+  .text-off-state {
+    color: hsl(var(--off-state));
+  }
+
+  .bg-heating {
+    background-color: hsl(var(--heating));
+  }
+
+  .bg-cooling {
+    background-color: hsl(var(--cooling));
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
