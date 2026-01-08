@@ -104,60 +104,27 @@ const ThermostatCard = ({
 
         {/* Inner Circle */}
         <div className="neu-concave w-48 h-48 rounded-full flex flex-col items-center justify-center relative z-10 overflow-hidden">
-          {/* Heating Flame Animation */}
+          {/* Heating Animation - Neumorphic Style */}
           {mode === "heating" && (
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flame-container">
-              {/* Main Flames */}
-              <div className="relative flex items-end justify-center gap-1">
-                {/* Left small flame */}
-                <div className="relative">
-                  <div className="flame flame-outer w-4 h-8 opacity-80" style={{ animationDelay: '0.2s' }} />
-                  <div className="flame flame-inner w-2.5 h-5 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.1s' }} />
-                </div>
-                
-                {/* Center large flame */}
-                <div className="relative -mx-1">
-                  <div className="flame flame-outer w-7 h-14" />
-                  <div className="flame flame-inner w-5 h-10 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.15s' }} />
-                  <div className="flame flame-core w-3 h-6 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.05s' }} />
-                </div>
-                
-                {/* Right small flame */}
-                <div className="relative">
-                  <div className="flame flame-outer w-4 h-8 opacity-80" style={{ animationDelay: '0.3s' }} />
-                  <div className="flame flame-inner w-2.5 h-5 absolute bottom-0 left-1/2 -translate-x-1/2" style={{ animationDelay: '0.25s' }} />
-                </div>
-              </div>
-              
-              {/* Embers */}
-              <div className="absolute -top-2 left-1/2 -translate-x-1/2 flex gap-3">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-1 h-1 rounded-full bg-heating ember"
-                    style={{ 
-                      animationDelay: `${i * 0.3}s`,
-                      left: `${(i - 2) * 6}px`
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
+            <>
+              {/* Pulsing glow */}
+              <div className="absolute inset-0 heat-glow-inner rounded-full" />
+              {/* Expanding rings */}
+              <div className="absolute inset-4 rounded-full heat-ring-expand" />
+              <div className="absolute inset-4 rounded-full heat-ring-expand" style={{ animationDelay: '0.7s' }} />
+              <div className="absolute inset-4 rounded-full heat-ring-expand" style={{ animationDelay: '1.4s' }} />
+            </>
           )}
 
-          {/* Cooling Animation */}
+          {/* Cooling Animation - Neumorphic Style */}
           {mode === "cooling" && (
             <>
-              <div className="absolute inset-0 shimmer-effect-cool rounded-full" />
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 flex gap-4">
-                {[0, 1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="w-1.5 h-1.5 bg-cooling rounded-full cool-particle opacity-0"
-                    style={{ animationDelay: `${i * 0.4}s` }}
-                  />
-                ))}
-              </div>
+              {/* Pulsing glow */}
+              <div className="absolute inset-0 cool-glow-inner rounded-full" />
+              {/* Expanding rings */}
+              <div className="absolute inset-4 rounded-full cool-ring-expand" />
+              <div className="absolute inset-4 rounded-full cool-ring-expand" style={{ animationDelay: '0.8s' }} />
+              <div className="absolute inset-4 rounded-full cool-ring-expand" style={{ animationDelay: '1.6s' }} />
             </>
           )}
 
