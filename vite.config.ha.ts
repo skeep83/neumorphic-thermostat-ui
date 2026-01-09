@@ -22,13 +22,8 @@ export default defineConfig({
         inlineDynamicImports: true,
       },
     },
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: false, // Keep console.info for version logging
-        drop_debugger: true,
-      },
-    },
+    // Keep build self-contained (no extra deps like terser required)
+    minify: 'esbuild',
     sourcemap: false,
   },
   define: {

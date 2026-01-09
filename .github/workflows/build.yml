@@ -17,6 +17,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,13 +43,13 @@ jobs:
           ls -lh dist/neumorphic-thermostat-ui.js
 
       - name: Commit dist folder
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add dist/
           git diff --staged --quiet || git commit -m "Build: Update dist/neumorphic-thermostat-ui.js"
-          git push
+          git push origin HEAD:main
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
