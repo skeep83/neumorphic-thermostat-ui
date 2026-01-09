@@ -16,7 +16,7 @@ A beautiful neumorphic thermostat card for Home Assistant with advanced climate 
 - 📱 **External Sensors** — Display power, humidity, etc.
 - 🔒 **Child Lock** — Lock controls to prevent changes
 - 🛡️ **Anti-flicker** — Debounced service calls
-
+ 
 ## 📦 Installation
 
 ### HACS (Recommended)
