@@ -156,9 +156,8 @@ class NeumorphicThermostatCard extends HTMLElement {
           8px 8px 16px var(--shadow-dark),
           -8px -8px 16px var(--shadow-light);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        min-width: 280px;
-        max-width: 320px;
-        margin: 0 auto;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .card.locked {
@@ -239,7 +238,7 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 24px 0;
+        margin: 24px auto;
       }
 
       .dial-ring {
