@@ -156,6 +156,9 @@ class NeumorphicThermostatCard extends HTMLElement {
           8px 8px 16px var(--shadow-dark),
           -8px -8px 16px var(--shadow-light);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        min-width: 280px;
+        max-width: 320px;
+        margin: 0 auto;
       }
 
       .card.locked {
@@ -177,15 +180,17 @@ class NeumorphicThermostatCard extends HTMLElement {
 
       .header-left h3 {
         margin: 0;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: 600;
         color: var(--text-primary);
+        line-height: 1.3;
       }
 
       .header-left p {
         margin: 4px 0 0;
-        font-size: 13px;
+        font-size: 14px;
         color: var(--text-secondary);
+        line-height: 1.3;
       }
 
       .mode-button {
@@ -201,14 +206,18 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: all 0.2s ease;
+        transition: all 0.15s ease;
         color: var(--off-color);
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        user-select: none;
       }
 
       .mode-button:active {
         box-shadow: 
           inset 2px 2px 4px var(--shadow-dark),
           inset -2px -2px 4px var(--shadow-light);
+        transform: scale(0.95);
       }
 
       .mode-button.heating {
@@ -351,20 +360,22 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .current-label {
-        font-size: 11px;
+        font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 1px;
         color: var(--text-secondary);
-        margin-bottom: 2px;
+        margin-bottom: 4px;
         position: relative;
         z-index: 10;
+        font-weight: 500;
       }
 
       .current-temp {
-        font-size: 14px;
-        color: var(--text-secondary);
+        font-size: 16px;
+        color: var(--text-primary);
         position: relative;
         z-index: 10;
+        font-weight: 500;
       }
 
       .target-temp {
@@ -376,15 +387,17 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .target-temp .value {
-        font-size: 48px;
-        font-weight: 300;
+        font-size: 52px;
+        font-weight: 400;
         transition: color 0.3s ease;
+        line-height: 1;
       }
 
       .target-temp .unit {
-        font-size: 24px;
-        margin-left: 2px;
+        font-size: 26px;
+        margin-left: 4px;
         transition: color 0.3s ease;
+        font-weight: 400;
       }
 
       .target-temp.heating .value,
@@ -403,13 +416,14 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .mode-label {
-        font-size: 11px;
+        font-size: 13px;
         text-transform: uppercase;
         letter-spacing: 1px;
-        margin-top: 4px;
+        margin-top: 6px;
         position: relative;
         z-index: 10;
         transition: color 0.3s ease;
+        font-weight: 600;
       }
 
       .mode-label.heating { color: var(--heating-color); }
@@ -438,7 +452,10 @@ class NeumorphicThermostatCard extends HTMLElement {
         align-items: center;
         justify-content: center;
         color: var(--text-primary);
-        transition: all 0.2s ease;
+        transition: all 0.15s ease;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        user-select: none;
       }
 
       .control-button:disabled {
@@ -450,11 +467,13 @@ class NeumorphicThermostatCard extends HTMLElement {
         box-shadow: 
           inset 2px 2px 4px var(--shadow-dark),
           inset -2px -2px 4px var(--shadow-light);
+        transform: scale(0.95);
       }
 
       .control-button svg {
         width: 24px;
         height: 24px;
+        pointer-events: none;
       }
 
       .range-display {
@@ -580,7 +599,7 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 13px;
+        font-size: 14px;
       }
 
       .status-left {
@@ -895,15 +914,15 @@ class NeumorphicThermostatCard extends HTMLElement {
   private _callService(domain: string, service: string, data: Record<string, unknown>) {
     const now = Date.now();
     
-    // Anti-flicker: debounce rapid calls
-    if (now - this._lastServiceCall < 1500) {
+    // Anti-flicker: debounce rapid calls (reduced to 300ms for better responsiveness)
+    if (now - this._lastServiceCall < 300) {
       if (this._debounceTimeout) {
         clearTimeout(this._debounceTimeout);
       }
       this._debounceTimeout = setTimeout(() => {
         this._hass.callService(domain, service, data);
         this._lastServiceCall = Date.now();
-      }, 500);
+      }, 200);
       return;
     }
 
