@@ -47,14 +47,13 @@ jobs:
           echo "Build successful! File sizes:"
           ls -lh dist/neumorphic-thermostat-ui.js neumorphic-thermostat-ui.js
 
-      - name: Commit dist folder
+      - name: Commit build output
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add neumorphic-thermostat-ui.js
-          git add -f dist/
-          git diff --staged --quiet || git commit -m "Build: Update dist/neumorphic-thermostat-ui.js"
+          git diff --staged --quiet || git commit -m "Build: Update neumorphic-thermostat-ui.js"
           git push origin HEAD:main
 
       - name: Upload build artifact
