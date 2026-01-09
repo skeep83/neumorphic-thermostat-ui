@@ -33,20 +33,26 @@ jobs:
       - name: Build HA card
         run: npm run build:ha
 
+      - name: Copy build output to repo root
+        run: cp dist/neumorphic-thermostat-ui.js neumorphic-thermostat-ui.js
+
       - name: Verify build output
         run: |
-          if [ ! -f "dist/neumorphic-thermostat-ui.js" ]; then
-            echo "Error: dist/neumorphic-thermostat-ui.js not found!"
-            exit 1
-          fi
-          echo "Build successful! File size:"
-          ls -lh dist/neumorphic-thermostat-ui.js
+          for f in "dist/neumorphic-thermostat-ui.js" "neumorphic-thermostat-ui.js"; do
+            if [ ! -f "$f" ]; then
+              echo "Error: $f not found!"
+              exit 1
+            fi
+          done
+          echo "Build successful! File sizes:"
+          ls -lh dist/neumorphic-thermostat-ui.js neumorphic-thermostat-ui.js
 
       - name: Commit dist folder
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.actor != 'github-actions[bot]'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+          git add neumorphic-thermostat-ui.js
           git add -f dist/
           git diff --staged --quiet || git commit -m "Build: Update dist/neumorphic-thermostat-ui.js"
           git push origin HEAD:main
@@ -55,4 +61,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: neumorphic-thermostat-ui
-          path: dist/neumorphic-thermostat-ui.js
+          path: |
+            dist/neumorphic-thermostat-ui.js
+            neumorphic-thermostat-ui.js
