@@ -10,7 +10,7 @@ A beautiful neumorphic thermostat card for Home Assistant with advanced climate 
 ## ✨ Features
 
 - 🎨 **Neumorphic Design** — Soft UI with realistic shadows
-- 🌡️ **Full Climate Control** — Temperature, HVAC modes, presets, fan
+- 🌡️ **Full Climate Control** — Temperature, HVAC modes, presets, fan  
 - ⚡ **Quick Presets** — One-tap temperature buttons
 - 📊 **Trend Tracking** — Temperature direction indicator
 - 📱 **External Sensors** — Display power, humidity, etc.
