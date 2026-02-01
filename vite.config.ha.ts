@@ -19,7 +19,7 @@ export default defineConfig({
     sourcemap: false,
     minify: "terser",
     lib: {
-      entry: path.resolve(__dirname, "src/main.tsx"),
+      entry: path.resolve(__dirname, "src/ha-panel.tsx"),
       name: "NeuomorphicThermostatUI",
       fileName: (format) => `neumorphic-thermostat-ui.${format === "es" ? "js" : "umd.js"}`,
       formats: ["es"],
