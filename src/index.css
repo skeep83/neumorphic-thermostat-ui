@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+
+  :root,
+  :host {
     /* Neumorphic Base Colors */
     --background: 220 15% 91%;
     --foreground: 220 20% 25%;
@@ -38,7 +40,7 @@
     /* Neumorphic Specific */
     --neu-light: 220 15% 98%;
     --neu-dark: 220 20% 78%;
-    
+
     /* Temperature Colors */
     --heating: 25 95% 55%;
     --heating-glow: 25 100% 65%;
@@ -51,7 +53,8 @@
     --shadow-dark: 220 20% 75%;
   }
 
-  .dark {
+  .dark,
+  :host(.dark) {
     --background: 220 20% 12%;
     --foreground: 220 15% 90%;
 
@@ -82,7 +85,7 @@
 
     --neu-light: 220 15% 18%;
     --neu-dark: 220 25% 8%;
-    
+
     --shadow-light: 220 15% 18%;
     --shadow-dark: 220 25% 6%;
   }
@@ -93,105 +96,104 @@
     @apply border-border;
   }
 
-  body {
+  body,
+  :host {
     @apply bg-background text-foreground antialiased;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
 @layer components {
+
   /* Neumorphic Effects */
   .neu-flat {
     background: hsl(var(--background));
-    box-shadow: 
+    box-shadow:
       8px 8px 16px hsl(var(--shadow-dark)),
       -8px -8px 16px hsl(var(--shadow-light));
   }
 
   .neu-convex {
     background: linear-gradient(145deg, hsl(var(--neu-light)), hsl(var(--neu-dark)));
-    box-shadow: 
+    box-shadow:
       8px 8px 16px hsl(var(--shadow-dark)),
       -8px -8px 16px hsl(var(--shadow-light));
   }
 
   .neu-concave {
     background: linear-gradient(145deg, hsl(var(--neu-dark)), hsl(var(--neu-light)));
-    box-shadow: 
+    box-shadow:
       inset 6px 6px 12px hsl(var(--shadow-dark)),
       inset -6px -6px 12px hsl(var(--shadow-light));
   }
 
   .neu-pressed {
     background: hsl(var(--background));
-    box-shadow: 
+    box-shadow:
       inset 4px 4px 8px hsl(var(--shadow-dark)),
       inset -4px -4px 8px hsl(var(--shadow-light));
   }
 
   .neu-button {
     background: linear-gradient(145deg, hsl(var(--neu-light)), hsl(var(--neu-dark)));
-    box-shadow: 
+    box-shadow:
       5px 5px 10px hsl(var(--shadow-dark)),
       -5px -5px 10px hsl(var(--shadow-light));
     transition: all 0.15s ease;
   }
 
   .neu-button:hover {
-    box-shadow: 
+    box-shadow:
       6px 6px 12px hsl(var(--shadow-dark)),
       -6px -6px 12px hsl(var(--shadow-light));
   }
 
   .neu-button:active {
-    box-shadow: 
+    box-shadow:
       inset 4px 4px 8px hsl(var(--shadow-dark)),
       inset -4px -4px 8px hsl(var(--shadow-light));
   }
 
   /* Temperature Ring */
   .temp-ring {
-    background: conic-gradient(
-      from 135deg,
-      transparent 0deg,
-      transparent 90deg,
-      hsl(var(--heating)) 90deg,
-      hsl(var(--heating-glow)) 180deg,
-      hsl(var(--heating)) 270deg,
-      transparent 270deg
-    );
+    background: conic-gradient(from 135deg,
+        transparent 0deg,
+        transparent 90deg,
+        hsl(var(--heating)) 90deg,
+        hsl(var(--heating-glow)) 180deg,
+        hsl(var(--heating)) 270deg,
+        transparent 270deg);
   }
 
   .temp-ring-cooling {
-    background: conic-gradient(
-      from 135deg,
-      transparent 0deg,
-      transparent 90deg,
-      hsl(var(--cooling)) 90deg,
-      hsl(var(--cooling-glow)) 180deg,
-      hsl(var(--cooling)) 270deg,
-      transparent 270deg
-    );
+    background: conic-gradient(from 135deg,
+        transparent 0deg,
+        transparent 90deg,
+        hsl(var(--cooling)) 90deg,
+        hsl(var(--cooling-glow)) 180deg,
+        hsl(var(--cooling)) 270deg,
+        transparent 270deg);
   }
 
   .temp-ring-off {
-    background: conic-gradient(
-      from 135deg,
-      transparent 0deg,
-      transparent 90deg,
-      hsl(var(--off-state)) 90deg,
-      hsl(var(--off-state) / 0.7) 180deg,
-      hsl(var(--off-state)) 270deg,
-      transparent 270deg
-    );
+    background: conic-gradient(from 135deg,
+        transparent 0deg,
+        transparent 90deg,
+        hsl(var(--off-state)) 90deg,
+        hsl(var(--off-state) / 0.7) 180deg,
+        hsl(var(--off-state)) 270deg,
+        transparent 270deg);
   }
 
   /* Animated Ring Overlay */
   @keyframes ring-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 0.6;
       transform: scale(1);
     }
+
     50% {
       opacity: 1;
       transform: scale(1.02);
@@ -200,10 +202,13 @@
 
   /* Neumorphic Heat/Cool Waves */
   @keyframes heat-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(0.85);
       opacity: 0.3;
     }
+
     50% {
       transform: scale(1);
       opacity: 0.6;
@@ -215,6 +220,7 @@
       transform: scale(0.6);
       opacity: 0.5;
     }
+
     100% {
       transform: scale(1.1);
       opacity: 0;
@@ -222,10 +228,13 @@
   }
 
   @keyframes cool-pulse {
-    0%, 100% {
+
+    0%,
+    100% {
       transform: scale(0.85);
       opacity: 0.3;
     }
+
     50% {
       transform: scale(1);
       opacity: 0.6;
@@ -237,6 +246,7 @@
       transform: scale(0.6);
       opacity: 0.5;
     }
+
     100% {
       transform: scale(1.1);
       opacity: 0;
@@ -249,12 +259,10 @@
 
   /* Neumorphic Glow Effects */
   .heat-glow-inner {
-    background: radial-gradient(
-      circle,
-      hsl(var(--heating) / 0.25) 0%,
-      hsl(var(--heating) / 0.1) 40%,
-      transparent 70%
-    );
+    background: radial-gradient(circle,
+        hsl(var(--heating) / 0.25) 0%,
+        hsl(var(--heating) / 0.1) 40%,
+        transparent 70%);
     animation: heat-pulse 2s ease-in-out infinite;
   }
 
@@ -264,12 +272,10 @@
   }
 
   .cool-glow-inner {
-    background: radial-gradient(
-      circle,
-      hsl(var(--cooling) / 0.25) 0%,
-      hsl(var(--cooling) / 0.1) 40%,
-      transparent 70%
-    );
+    background: radial-gradient(circle,
+        hsl(var(--cooling) / 0.25) 0%,
+        hsl(var(--cooling) / 0.1) 40%,
+        transparent 70%);
     animation: cool-pulse 2.5s ease-in-out infinite;
   }
 
