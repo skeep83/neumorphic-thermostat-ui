@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,88 +8,89 @@
 
   :root,
   :host {
-    /* Neumorphic Base Colors */
-    --background: 220 15% 91%;
-    --foreground: 220 20% 25%;
+    /* Premium Neumorphic Palette */
+    --background: 210 20% 93%;
+    --foreground: 215 25% 27%;
 
-    --card: 220 15% 91%;
-    --card-foreground: 220 20% 25%;
+    --card: 210 20% 93%;
+    --card-foreground: 215 25% 27%;
 
-    --popover: 220 15% 91%;
-    --popover-foreground: 220 20% 25%;
+    --popover: 210 20% 93%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 220 20% 30%;
-    --primary-foreground: 220 15% 95%;
+    --primary: 215 25% 27%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 220 10% 85%;
-    --secondary-foreground: 220 20% 25%;
+    --secondary: 210 20% 90%;
+    --secondary-foreground: 215 25% 27%;
 
-    --muted: 220 10% 85%;
-    --muted-foreground: 220 15% 50%;
+    --muted: 210 20% 88%;
+    --muted-foreground: 215 20% 45%;
 
-    --accent: 220 10% 85%;
-    --accent-foreground: 220 20% 25%;
+    --accent: 210 20% 90%;
+    --accent-foreground: 215 25% 27%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 85%;
-    --input: 220 15% 85%;
-    --ring: 220 20% 30%;
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 215 25% 27%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
 
     /* Neumorphic Specific */
-    --neu-light: 220 15% 98%;
-    --neu-dark: 220 20% 78%;
+    --neu-light: 0 0% 100%;
+    --neu-dark: 210 15% 82%;
 
-    /* Temperature Colors */
-    --heating: 25 95% 55%;
-    --heating-glow: 25 100% 65%;
-    --cooling: 200 85% 55%;
-    --cooling-glow: 200 100% 65%;
-    --off-state: 220 10% 65%;
+    /* Temperature Colors - Adjusted to be less yellow */
+    --heating: 15 90% 55%;
+    --heating-glow: 15 100% 65%;
+    --cooling: 195 90% 50%;
+    --cooling-glow: 195 100% 60%;
+    --off-state: 215 15% 65%;
+    --fan-state: 150 60% 45%;
 
-    /* Shadows */
+    /* Shadows - softer and cleaner */
     --shadow-light: 0 0% 100%;
-    --shadow-dark: 220 20% 75%;
+    --shadow-dark: 210 20% 78%;
   }
 
   .dark,
   :host(.dark) {
-    --background: 220 20% 12%;
+    --background: 220 20% 14%;
     --foreground: 220 15% 90%;
 
-    --card: 220 20% 12%;
+    --card: 220 20% 14%;
     --card-foreground: 220 15% 90%;
 
-    --popover: 220 20% 12%;
+    --popover: 220 20% 14%;
     --popover-foreground: 220 15% 90%;
 
     --primary: 220 15% 90%;
-    --primary-foreground: 220 20% 12%;
+    --primary-foreground: 220 20% 14%;
 
-    --secondary: 220 15% 18%;
+    --secondary: 220 15% 20%;
     --secondary-foreground: 220 15% 90%;
 
-    --muted: 220 15% 18%;
+    --muted: 220 15% 20%;
     --muted-foreground: 220 10% 60%;
 
-    --accent: 220 15% 18%;
+    --accent: 220 15% 20%;
     --accent-foreground: 220 15% 90%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 20%;
+    --border: 220 15% 24%;
+    --input: 220 15% 24%;
     --ring: 220 15% 70%;
 
-    --neu-light: 220 15% 18%;
-    --neu-dark: 220 25% 8%;
+    --neu-light: 220 15% 22%;
+    --neu-dark: 220 25% 10%;
 
-    --shadow-light: 220 15% 18%;
-    --shadow-dark: 220 25% 6%;
+    --shadow-light: 220 15% 22%;
+    --shadow-dark: 220 30% 8%;
   }
 }
 
@@ -99,7 +102,7 @@
   body,
   :host {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Manrope', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   }
 }
 
