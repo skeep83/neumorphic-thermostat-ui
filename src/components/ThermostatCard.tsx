@@ -26,15 +26,21 @@ const ThermostatCard = ({
   // --- Data Binding ---
   const entity = hass && entityId ? hass.states[entityId] : undefined;
 
-  // Use entity data or fallbacks
+  // Use entity data or fallbacks with config overrides
   const currentTemp = entity?.attributes.current_temperature ?? propCurrentTemp ?? 20;
+
+  // Config overrides
+  const step = config?.step ?? entity?.attributes.target_temp_step ?? 0.5;
+  const minTemp = config?.min_temp ?? entity?.attributes.min_temp ?? 16;
+  const maxTemp = config?.max_temp ?? entity?.attributes.max_temp ?? 30;
+  const showModes = config?.show_modes ?? true;
+  const showFan = config?.show_fan ?? false; // Future use
+  const quickPresets = config?.quick_presets as number[] | undefined;
+  const extraSensors = config?.sensors as string[] | undefined;
+
   const targetTemp = entity?.attributes.temperature ?? initialTemp;
   const hvacAction = entity?.attributes.hvac_action; // heating, cooling, idle
   const mode = (entity?.state as ThermostatMode) ?? "heat"; // heat, cool, off, etc
-
-  const minTemp = entity?.attributes.min_temp ?? 16;
-  const maxTemp = entity?.attributes.max_temp ?? 30;
-  const step = entity?.attributes.target_temp_step ?? 0.5;
 
   const humidity = entity?.attributes.humidity;
   const friendlyName = config?.name ?? entity?.attributes.friendly_name ?? roomName;
@@ -59,7 +65,6 @@ const ThermostatCard = ({
     setLocalTargetTemp(rounded);
 
     if (hass && entityId) {
-      // Debounced call could be better, but direct call is okay for now if not dragging too fast
       hass.callService("climate", "set_temperature", {
         entity_id: entityId,
         temperature: rounded,
@@ -68,6 +73,7 @@ const ThermostatCard = ({
   };
 
   const handleModeChange = () => {
+    if (!showModes) return;
     // Simple cycle logic: off -> heat -> cool -> off
     // Or based on available modes
     const availableModes = entity?.attributes.hvac_modes ?? ["off", "heat", "cool"];
@@ -116,8 +122,8 @@ const ThermostatCard = ({
   const degrees = percentage * 270; // 270 degree arc
 
   return (
-    <div className="flex items-center justify-center p-4">
-      <div className="neu-flat rounded-[3rem] p-8 w-[22rem] relative overflow-hidden transition-all duration-300">
+    <div className="flex flex-col items-center justify-center p-4">
+      <div className="neu-flat rounded-[3rem] p-8 w-[24rem] relative overflow-hidden transition-all duration-300">
 
         {/* Background Status Glow (Subtle) */}
         <div className={cn(
@@ -142,21 +148,23 @@ const ThermostatCard = ({
               )}
             </div>
           </div>
-          <button
-            onClick={handleModeChange}
-            className={cn(
-              "neu-button w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 active:scale-95",
-              getModeColor()
-            )}
-          >
-            {traverseIcon()}
-          </button>
+          {showModes && (
+            <button
+              onClick={handleModeChange}
+              className={cn(
+                "neu-button w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 active:scale-95",
+                getModeColor()
+              )}
+            >
+              {traverseIcon()}
+            </button>
+          )}
         </div>
 
         {/* Main Dial Area */}
         <div
           ref={dialRef}
-          className="relative flex items-center justify-center my-10"
+          className="relative flex items-center justify-center my-6"
         >
           {/* Outer Ring Main Container */}
           <div className="relative w-64 h-64 flex items-center justify-center">
@@ -170,12 +178,9 @@ const ThermostatCard = ({
                 mode === "off" && "opacity-50 grayscale"
               )}
               style={{
-                // Mask to create the arc (270deg starting from -225deg or similar)
-                // We use a conic gradient mask.
-                // Solid part is the "track".
+                // Mask to create the arc
                 maskImage: `conic-gradient(from 135deg, black 0deg, black ${degrees}deg, transparent ${degrees}deg, transparent 270deg, black 270deg)`,
                 WebkitMaskImage: `conic-gradient(from 135deg, black 1deg, black ${degrees}deg, transparent ${degrees}deg)`,
-                // Fix: simple conic mask for progress
               }}
             />
 
@@ -183,9 +188,7 @@ const ThermostatCard = ({
             <div className="absolute inset-0 rounded-full border-[20px] border-muted/20"
               style={{
                 maskImage: 'conic-gradient(from 135deg, transparent 0deg, transparent 270deg, transparent 270deg)',
-                // Actually we want a full ring but cut at bottom.
                 clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 50%, 0 100%)', // Rough cut
-                // Better: SVG based ring later? Using CSS only for now.
               }}
             />
 
@@ -229,7 +232,7 @@ const ThermostatCard = ({
         </div>
 
         {/* Controls */}
-        <div className="flex items-center justify-between gap-6 px-4">
+        <div className="flex items-center justify-between gap-6 px-4 mb-6">
           <button
             onClick={() => handleSetTemp(localTargetTemp - step)}
             className="neu-button w-14 h-14 rounded-full flex items-center justify-center text-foreground hover:scale-105 active:scale-95 transition-all"
@@ -253,6 +256,42 @@ const ThermostatCard = ({
             <Plus className="w-6 h-6" />
           </button>
         </div>
+
+        {/* Quick Presets */}
+        {quickPresets && quickPresets.length > 0 && (
+          <div className="grid grid-cols-4 gap-2 mb-6">
+            {quickPresets.slice(0, 4).map((preset) => (
+              <button
+                key={preset}
+                onClick={() => handleSetTemp(preset)}
+                className={cn(
+                  "py-2 rounded-xl text-sm font-medium transition-all active:scale-95",
+                  localTargetTemp === preset
+                    ? "neu-pressed text-primary"
+                    : "neu-button text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {preset}°
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Extra Sensors */}
+        {extraSensors && extraSensors.length > 0 && hass && (
+          <div className="flex gap-2 justify-center flex-wrap pt-4 border-t border-muted/10">
+            {extraSensors.map((sensorId) => {
+              const sensorState = hass.states[sensorId];
+              if (!sensorState) return null;
+              return (
+                <div key={sensorId} className="flex items-center gap-2 bg-muted/5 px-3 py-1.5 rounded-lg border border-white/5">
+                  <span className="text-xs text-muted-foreground uppercase">{sensorState.attributes.friendly_name || sensorId}</span>
+                  <span className="text-sm font-semibold">{sensorState.state} {sensorState.attributes.unit_of_measurement}</span>
+                </div>
+              )
+            })}
+          </div>
+        )}
 
       </div>
     </div>
