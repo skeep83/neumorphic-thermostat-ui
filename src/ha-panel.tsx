@@ -18,9 +18,10 @@ class NeumorphicThermostatCard extends HTMLElement {
         if (!config) {
             throw new Error("Invalid configuration");
         }
-        if (!config.entity) {
-            throw new Error("Please define an entity");
-        }
+        // if (!config.entity) {
+        //     // Allow rendering without entity for preview/demo purposes
+        //     // throw new Error("Please define an entity");
+        // }
         this._config = config;
         this._render();
     }

@@ -131,6 +131,13 @@ const ThermostatCard = ({
           mode === "heat" ? "bg-heating" : mode === "cool" ? "bg-cooling" : "bg-transparent"
         )} />
 
+        {/* Missing Entity Warning */}
+        {!entityId && (
+          <div className="absolute top-0 left-0 right-0 bg-yellow-500/20 text-yellow-500 text-xs py-1 text-center font-bold z-50">
+            Preview Mode — Please select a climate entity
+          </div>
+        )}
+
         {/* Header */}
         <div className="flex items-center justify-between mb-8 relative z-10">
           <div>
