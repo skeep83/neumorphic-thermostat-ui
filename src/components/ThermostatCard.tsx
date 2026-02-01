@@ -126,15 +126,9 @@ const ThermostatCard = ({
   return (
     <div className="flex flex-col items-center justify-center p-4 min-h-[380px]">
       <div className={cn(
-        "neu-flat rounded-[2rem] p-6 w-[22rem] relative overflow-hidden transition-all duration-500 ease-in-out",
+        "neu-flat rounded-[2rem] p-6 w-full max-w-sm relative overflow-visible transition-all duration-500 ease-in-out",
         isActive ? "opacity-100" : "opacity-95"
       )}>
-
-        {/* Dynamic Background Glow */}
-        <div className={cn(
-          "absolute inset-0 opacity-20 pointer-events-none transition-all duration-1000",
-          mode === "heat" ? "bg-heating blur-3xl opacity-15" : mode === "cool" ? "bg-cooling blur-3xl opacity-15" : "bg-transparent"
-        )} />
 
         {/* Top Bar: Name & Humidity */}
         <div className="flex items-start justify-between mb-2 relative z-10 px-2">
@@ -192,7 +186,11 @@ const ThermostatCard = ({
             </div>
 
             {/* Center Control (Knob equivalent) */}
-            <div className="neu-convex w-44 h-44 rounded-full flex flex-col items-center justify-center relative z-20 shadow-2xl">
+            <div className={cn(
+              "neu-convex w-44 h-44 rounded-full flex flex-col items-center justify-center relative z-20 shadow-2xl transition-shadow duration-500",
+              mode === "heat" ? "shadow-[0_0_40px_-5px_hsl(var(--heating)/0.3)]" :
+                mode === "cool" ? "shadow-[0_0_40px_-5px_hsl(var(--cooling)/0.3)]" : ""
+            )}>
 
               {/* Inner concave for depth */}
               <div className="neu-concave w-36 h-36 rounded-full flex flex-col items-center justify-center relative overflow-hidden">
