@@ -124,9 +124,9 @@ const ThermostatCard = ({
   const isActive = mode !== "off";
 
   return (
-    <div className="flex flex-col items-center justify-center p-4 min-h-[400px]">
+    <div className="flex flex-col items-center justify-center p-4 min-h-[380px]">
       <div className={cn(
-        "neu-flat rounded-[2.5rem] p-6 w-[22rem] relative overflow-hidden transition-all duration-500 ease-in-out",
+        "neu-flat rounded-[2rem] p-6 w-[22rem] relative overflow-hidden transition-all duration-500 ease-in-out",
         isActive ? "opacity-100" : "opacity-95"
       )}>
 

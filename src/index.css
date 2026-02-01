@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,89 +8,95 @@
 
   :root,
   :host {
-    /* Premium Neumorphic Palette */
-    --background: 210 20% 93%;
-    --foreground: 215 25% 27%;
+    /* Themesberg Neumorphism Pro Palette */
+    --background: 231 16% 92%;
+    /* #e6e7ee */
+    --foreground: 233 21% 24%;
+    /* #31344b */
 
-    --card: 210 20% 93%;
-    --card-foreground: 215 25% 27%;
+    --card: 231 16% 92%;
+    --card-foreground: 233 21% 24%;
 
-    --popover: 210 20% 93%;
-    --popover-foreground: 215 25% 27%;
+    --popover: 231 16% 92%;
+    --popover-foreground: 233 21% 24%;
 
-    --primary: 215 25% 27%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 233 21% 24%;
+    --primary-foreground: 231 16% 92%;
 
-    --secondary: 210 20% 90%;
-    --secondary-foreground: 215 25% 27%;
+    --secondary: 231 20% 88%;
+    --secondary-foreground: 233 21% 24%;
 
-    --muted: 210 20% 88%;
-    --muted-foreground: 215 20% 45%;
+    --muted: 231 10% 85%;
+    --muted-foreground: 233 15% 50%;
 
-    --accent: 210 20% 90%;
-    --accent-foreground: 215 25% 27%;
+    --accent: 231 20% 88%;
+    --accent-foreground: 233 21% 24%;
 
     --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 20% 88%;
-    --input: 210 20% 88%;
-    --ring: 215 25% 27%;
+    --border: 231 10% 80%;
+    --input: 231 16% 92%;
+    --ring: 233 21% 24%;
 
-    --radius: 1.5rem;
+    --radius: 12px;
+    /* Standard 12px for cards */
 
     /* Neumorphic Specific */
     --neu-light: 0 0% 100%;
-    --neu-dark: 210 15% 82%;
+    --neu-dark: 231 16% 92%;
+    /* Base background for gradient ref */
 
-    /* Temperature Colors - Adjusted to be less yellow */
+    /* Temperature Colors */
     --heating: 15 90% 55%;
     --heating-glow: 15 100% 65%;
     --cooling: 195 90% 50%;
     --cooling-glow: 195 100% 60%;
-    --off-state: 215 15% 65%;
+    --off-state: 233 10% 60%;
     --fan-state: 150 60% 45%;
 
-    /* Shadows - softer and cleaner */
+    /* Shadows */
     --shadow-light: 0 0% 100%;
-    --shadow-dark: 210 20% 78%;
+    --shadow-dark: 231 5% 73%;
+    /* #b8b9be roughly */
   }
 
   .dark,
   :host(.dark) {
-    --background: 220 20% 14%;
-    --foreground: 220 15% 90%;
+    /* Dark Theme Match (approximate for Neumorphism) */
+    --background: 233 15% 20%;
+    --foreground: 231 15% 90%;
 
-    --card: 220 20% 14%;
-    --card-foreground: 220 15% 90%;
+    --card: 233 15% 20%;
+    --card-foreground: 231 15% 90%;
 
-    --popover: 220 20% 14%;
-    --popover-foreground: 220 15% 90%;
+    --popover: 233 15% 20%;
+    --popover-foreground: 231 15% 90%;
 
-    --primary: 220 15% 90%;
-    --primary-foreground: 220 20% 14%;
+    --primary: 231 15% 90%;
+    --primary-foreground: 233 15% 20%;
 
-    --secondary: 220 15% 20%;
-    --secondary-foreground: 220 15% 90%;
+    --secondary: 233 15% 25%;
+    --secondary-foreground: 231 15% 90%;
 
-    --muted: 220 15% 20%;
-    --muted-foreground: 220 10% 60%;
+    --muted: 233 15% 25%;
+    --muted-foreground: 231 10% 60%;
 
-    --accent: 220 15% 20%;
-    --accent-foreground: 220 15% 90%;
+    --accent: 233 15% 25%;
+    --accent-foreground: 231 15% 90%;
 
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 24%;
-    --input: 220 15% 24%;
-    --ring: 220 15% 70%;
+    --border: 233 15% 30%;
+    --input: 233 15% 30%;
+    --ring: 233 15% 70%;
 
-    --neu-light: 220 15% 22%;
-    --neu-dark: 220 25% 10%;
+    --neu-light: 233 15% 24%;
+    --neu-dark: 233 20% 15%;
 
-    --shadow-light: 220 15% 22%;
-    --shadow-dark: 220 30% 8%;
+    --shadow-light: 233 15% 25%;
+    --shadow-dark: 233 20% 12%;
   }
 }
 
@@ -102,29 +108,31 @@
   body,
   :host {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Manrope', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Nunito', sans-serif;
   }
 }
 
 @layer components {
 
-  /* Neumorphic Effects */
+  /* Neumorphic Effects - Themesberg Style (Soft) */
   .neu-flat {
     background: hsl(var(--background));
     box-shadow:
-      8px 8px 16px hsl(var(--shadow-dark)),
-      -8px -8px 16px hsl(var(--shadow-light));
+      6px 6px 12px hsl(var(--shadow-dark)),
+      -6px -6px 12px hsl(var(--shadow-light));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    /* Subtle highlight border */
   }
 
   .neu-convex {
-    background: linear-gradient(145deg, hsl(var(--neu-light)), hsl(var(--neu-dark)));
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.05));
     box-shadow:
-      8px 8px 16px hsl(var(--shadow-dark)),
-      -8px -8px 16px hsl(var(--shadow-light));
+      6px 6px 12px hsl(var(--shadow-dark)),
+      -6px -6px 12px hsl(var(--shadow-light));
   }
 
   .neu-concave {
-    background: linear-gradient(145deg, hsl(var(--neu-dark)), hsl(var(--neu-light)));
+    background: hsl(var(--background));
     box-shadow:
       inset 6px 6px 12px hsl(var(--shadow-dark)),
       inset -6px -6px 12px hsl(var(--shadow-light));
@@ -138,23 +146,29 @@
   }
 
   .neu-button {
-    background: linear-gradient(145deg, hsl(var(--neu-light)), hsl(var(--neu-dark)));
+    background: hsl(var(--background));
     box-shadow:
       5px 5px 10px hsl(var(--shadow-dark)),
       -5px -5px 10px hsl(var(--shadow-light));
-    transition: all 0.15s ease;
+    border-radius: 50px;
+    /* Pill shape standard */
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Crisp border */
   }
 
   .neu-button:hover {
+    transform: translateY(-2px);
     box-shadow:
       6px 6px 12px hsl(var(--shadow-dark)),
       -6px -6px 12px hsl(var(--shadow-light));
   }
 
   .neu-button:active {
+    transform: translateY(0);
     box-shadow:
-      inset 4px 4px 8px hsl(var(--shadow-dark)),
-      inset -4px -4px 8px hsl(var(--shadow-light));
+      inset 3px 3px 6px hsl(var(--shadow-dark)),
+      inset -3px -3px 6px hsl(var(--shadow-light));
   }
 
   /* Temperature Ring */
