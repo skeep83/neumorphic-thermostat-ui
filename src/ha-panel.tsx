@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot, Root } from "react-dom/client";
 import { HomeAssistant, LovelaceCardConfig } from "./types/home-assistant";
 import ThermostatCard from "./components/ThermostatCard";
-import "./index.css";
+import styles from "./index.css?inline";
 
 class NeumorphicThermostatCard extends HTMLElement {
     private _root: Root | null = null;
@@ -44,25 +44,12 @@ class NeumorphicThermostatCard extends HTMLElement {
             container.style.height = "100%";
             this.shadowRoot.appendChild(container);
 
-            // Inject styles manually because Shadow DOM blocks global styles
-            // We need to fetch the styles from the built CSS file or inject them differently.
-            // For a single-file build, we can try to inject the index.css content if we inline it,
-            // but Vite usually extracts it.
-            // A common trick is to construct a style tag.
-            // For now, let's rely on the build process to potentially inline css or we add a link.
-            // BETTER APPROACH: Use `insert-css` or similar if needed, OR relies on the fact that
-            // we are using Tailwind and it might need to be scoped.
-            // For this implementation, we will try to copy the styles from the document head if available,
-            // or rely on a <style> tag if we can get the CSS content.
-            // Since we import "./index.css", Vite might inject it into the document head.
-            // We need to move it to shadow root.
-
             const style = document.createElement('style');
             style.textContent = `
         :host {
           display: block;
         }
-        /* Import tailwind base/components/utilities - it requires a build step that extracts CSS to string */
+        ${styles}
       `;
             this.shadowRoot.appendChild(style);
 
@@ -102,12 +89,12 @@ class NeumorphicThermostatCard extends HTMLElement {
     }
 }
 
-customElements.define("neumorphic-thermostat-card", NeumorphicThermostatCard);
+customElements.define("neumorphic-thermostat-ui", NeumorphicThermostatCard);
 
 // Add card to global window for HA to pick up (optional but good for discovery)
 (window as any).customCards = (window as any).customCards || [];
 (window as any).customCards.push({
-    type: "neumorphic-thermostat-card",
+    type: "neumorphic-thermostat-ui",
     name: "Neumorphic Thermostat",
     description: "A beautiful Neumorphic Thermostat card",
 });
