@@ -155,14 +155,10 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .card {
-        background: var(--neu-bg);
-        border-radius: 20px;
+        background: transparent;
         padding: 20px;
         width: 100%;
         box-sizing: border-box;
-        box-shadow: 
-          6px 6px 12px var(--shadow-dark),
-          -6px -6px 12px var(--shadow-light);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
 
@@ -793,7 +789,7 @@ class NeumorphicThermostatCard extends HTMLElement {
         position: absolute;
         inset: 0;
         background: hsla(220, 15%, 92%, 0.5);
-        border-radius: 24px;
+        border-radius: inherit;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -812,6 +808,7 @@ class NeumorphicThermostatCard extends HTMLElement {
         box-sizing: border-box;
         overflow: hidden;
         isolation: isolate;
+        border-radius: inherit;
       }
 
       /* Action badge */
