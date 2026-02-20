@@ -49,6 +49,10 @@ class NeumorphicThermostatCard extends HTMLElement {
             style.textContent = `
         :host {
           display: block;
+          position: relative;
+          z-index: 0;
+          isolation: isolate;
+          overflow: hidden;
         }
         ${styles}
       `;

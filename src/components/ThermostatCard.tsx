@@ -126,7 +126,7 @@ const ThermostatCard = ({
   return (
     <div className="flex flex-col items-center justify-center p-4 min-h-[380px]">
       <div className={cn(
-        "neu-flat rounded-[2rem] p-6 w-full max-w-sm relative overflow-visible transition-all duration-500 ease-in-out",
+        "neu-flat rounded-[2rem] p-6 w-full max-w-sm relative overflow-hidden isolate transition-all duration-500 ease-in-out",
         isActive ? "opacity-100" : "opacity-95"
       )}>
 
@@ -207,7 +207,7 @@ const ThermostatCard = ({
 
                 {/* Power Button Overlay (if off) */}
                 {mode === 'off' && (
-                  <button onClick={togglePower} className="absolute inset-0 z-30 flex items-center justify-center bg-background/80 backdrop-blur-sm cursor-pointer transition-all hover:bg-background/60">
+                  <button onClick={togglePower} className="absolute inset-0 z-10 flex items-center justify-center bg-background/80 backdrop-blur-sm cursor-pointer transition-all hover:bg-background/60">
                     <Power className="w-12 h-12 text-primary" />
                   </button>
                 )}

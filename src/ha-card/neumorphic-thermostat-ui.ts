@@ -108,19 +108,19 @@ class NeumorphicThermostatCard extends HTMLElement {
     if (entity?.attributes?.current_temperature !== undefined) {
       const currentTemp = entity.attributes.current_temperature;
       const now = Date.now();
-      
+
       // Add new record
       this._tempHistory.push({ temp: currentTemp, timestamp: now });
-      
+
       // Keep only last 30 minutes of data
       const thirtyMinutesAgo = now - 30 * 60 * 1000;
       this._tempHistory = this._tempHistory.filter(r => r.timestamp > thirtyMinutesAgo);
     }
 
     // Only re-render if entity state changed
-    if (!oldHass || 
-        oldHass.states[this._config.entity] !== hass.states[this._config.entity] ||
-        this._config.sensors?.some(s => oldHass.states[s] !== hass.states[s])) {
+    if (!oldHass ||
+      oldHass.states[this._config.entity] !== hass.states[this._config.entity] ||
+      this._config.sensors?.some(s => oldHass.states[s] !== hass.states[s])) {
       this._render();
     }
   }
@@ -146,15 +146,18 @@ class NeumorphicThermostatCard extends HTMLElement {
         --shadow-light: hsl(0, 0%, 100%);
         --error-color: hsl(0, 70%, 55%);
         --success-color: hsl(140, 70%, 45%);
+        position: relative;
+        z-index: 0;
+        isolation: isolate;
       }
 
       .card {
         background: var(--neu-bg);
-        border-radius: 24px;
-        padding: 24px;
+        border-radius: 20px;
+        padding: 16px;
         box-shadow: 
-          8px 8px 16px var(--shadow-dark),
-          -8px -8px 16px var(--shadow-light);
+          6px 6px 12px var(--shadow-dark),
+          -6px -6px 12px var(--shadow-light);
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
 
@@ -172,31 +175,31 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
       }
 
       .header-left h3 {
         margin: 0;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: 600;
         color: var(--text-primary);
       }
 
       .header-left p {
-        margin: 4px 0 0;
-        font-size: 13px;
+        margin: 2px 0 0;
+        font-size: 11px;
         color: var(--text-secondary);
       }
 
       .mode-button {
-        width: 48px;
-        height: 48px;
-        border-radius: 12px;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
         border: none;
         background: var(--neu-bg);
         box-shadow: 
-          4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
+          3px 3px 6px var(--shadow-dark),
+          -3px -3px 6px var(--shadow-light);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -220,8 +223,8 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .mode-button svg {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
       }
 
       /* Temperature Dial */
@@ -230,13 +233,13 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 24px 0;
+        margin: 12px 0;
       }
 
       .dial-ring {
         position: absolute;
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
         border-radius: 50%;
         transition: all 0.5s ease;
       }
@@ -279,13 +282,13 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .dial-inner {
-        width: 170px;
-        height: 170px;
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
         background: var(--neu-bg);
         box-shadow: 
-          inset 6px 6px 12px var(--shadow-dark),
-          inset -6px -6px 12px var(--shadow-light);
+          inset 4px 4px 8px var(--shadow-dark),
+          inset -4px -4px 8px var(--shadow-light);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -325,7 +328,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
       .ring-expand {
         position: absolute;
-        inset: 16px;
+        inset: 12px;
         border-radius: 50%;
         pointer-events: none;
         animation: ring-expand 2.1s ease-out infinite;
@@ -351,17 +354,17 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .current-label {
-        font-size: 11px;
+        font-size: 9px;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.8px;
         color: var(--text-secondary);
-        margin-bottom: 2px;
+        margin-bottom: 1px;
         position: relative;
         z-index: 10;
       }
 
       .current-temp {
-        font-size: 14px;
+        font-size: 12px;
         color: var(--text-secondary);
         position: relative;
         z-index: 10;
@@ -370,20 +373,21 @@ class NeumorphicThermostatCard extends HTMLElement {
       .target-temp {
         display: flex;
         align-items: baseline;
-        margin-top: 8px;
+        margin-top: 4px;
         position: relative;
         z-index: 10;
       }
 
       .target-temp .value {
-        font-size: 48px;
+        font-size: 36px;
         font-weight: 300;
+        line-height: 1;
         transition: color 0.3s ease;
       }
 
       .target-temp .unit {
-        font-size: 24px;
-        margin-left: 2px;
+        font-size: 18px;
+        margin-left: 1px;
         transition: color 0.3s ease;
       }
 
@@ -421,18 +425,18 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 24px;
+        gap: 16px;
       }
 
       .control-button {
-        width: 56px;
-        height: 56px;
+        width: 44px;
+        height: 44px;
         border-radius: 50%;
         border: none;
         background: var(--neu-bg);
         box-shadow: 
-          4px 4px 8px var(--shadow-dark),
-          -4px -4px 8px var(--shadow-light);
+          3px 3px 6px var(--shadow-dark),
+          -3px -3px 6px var(--shadow-light);
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -453,8 +457,8 @@ class NeumorphicThermostatCard extends HTMLElement {
       }
 
       .control-button svg {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
       }
 
       .range-display {
@@ -462,15 +466,15 @@ class NeumorphicThermostatCard extends HTMLElement {
         box-shadow: 
           inset 2px 2px 4px var(--shadow-dark),
           inset -2px -2px 4px var(--shadow-light);
-        border-radius: 12px;
-        padding: 8px 16px;
+        border-radius: 10px;
+        padding: 6px 12px;
         display: flex;
         align-items: center;
         justify-content: center;
       }
 
       .range-display span {
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 500;
         color: var(--text-secondary);
       }
@@ -478,22 +482,22 @@ class NeumorphicThermostatCard extends HTMLElement {
       /* Quick Presets */
       .quick-presets {
         display: flex;
-        gap: 8px;
+        gap: 6px;
         justify-content: center;
-        margin-top: 16px;
+        margin-top: 12px;
         flex-wrap: wrap;
       }
 
       .preset-chip {
-        padding: 8px 16px;
-        border-radius: 20px;
+        padding: 6px 12px;
+        border-radius: 16px;
         border: none;
         background: var(--neu-bg);
         box-shadow: 
-          3px 3px 6px var(--shadow-dark),
-          -3px -3px 6px var(--shadow-light);
+          2px 2px 4px var(--shadow-dark),
+          -2px -2px 4px var(--shadow-light);
         cursor: pointer;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 500;
         color: var(--text-primary);
         transition: all 0.2s ease;
@@ -515,29 +519,29 @@ class NeumorphicThermostatCard extends HTMLElement {
       /* HVAC Modes */
       .hvac-modes {
         display: flex;
-        gap: 8px;
+        gap: 6px;
         justify-content: center;
-        margin-top: 16px;
+        margin-top: 12px;
         flex-wrap: wrap;
       }
 
       .hvac-mode-button {
-        padding: 8px 14px;
-        border-radius: 10px;
+        padding: 6px 10px;
+        border-radius: 8px;
         border: none;
         background: var(--neu-bg);
         box-shadow: 
-          3px 3px 6px var(--shadow-dark),
-          -3px -3px 6px var(--shadow-light);
+          2px 2px 4px var(--shadow-dark),
+          -2px -2px 4px var(--shadow-light);
         cursor: pointer;
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         text-transform: uppercase;
         color: var(--text-secondary);
         transition: all 0.2s ease;
         display: flex;
         align-items: center;
-        gap: 6px;
+        gap: 4px;
       }
 
       .hvac-mode-button:active {
@@ -567,20 +571,20 @@ class NeumorphicThermostatCard extends HTMLElement {
 
       /* Status Bar */
       .status-bar {
-        margin-top: 20px;
+        margin-top: 12px;
         background: var(--neu-bg);
         box-shadow: 
           inset 2px 2px 4px var(--shadow-dark),
           inset -2px -2px 4px var(--shadow-light);
-        border-radius: 12px;
-        padding: 12px 16px;
+        border-radius: 10px;
+        padding: 8px 12px;
       }
 
       .status-row {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        font-size: 13px;
+        font-size: 11px;
       }
 
       .status-left {
@@ -650,9 +654,9 @@ class NeumorphicThermostatCard extends HTMLElement {
       /* Sensors */
       .sensors-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 8px;
-        margin-top: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 6px;
+        margin-top: 10px;
       }
 
       .sensor-item {
@@ -660,13 +664,13 @@ class NeumorphicThermostatCard extends HTMLElement {
         box-shadow: 
           2px 2px 4px var(--shadow-dark),
           -2px -2px 4px var(--shadow-light);
-        border-radius: 10px;
-        padding: 10px;
+        border-radius: 8px;
+        padding: 8px;
         text-align: center;
       }
 
       .sensor-value {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 600;
         color: var(--text-primary);
       }
@@ -788,7 +792,7 @@ class NeumorphicThermostatCard extends HTMLElement {
         display: flex;
         align-items: center;
         justify-content: center;
-        z-index: 100;
+        z-index: 10;
       }
 
       .locked-overlay svg {
@@ -799,6 +803,8 @@ class NeumorphicThermostatCard extends HTMLElement {
 
       .card-wrapper {
         position: relative;
+        overflow: hidden;
+        isolation: isolate;
       }
 
       /* Action badge */
@@ -836,7 +842,7 @@ class NeumorphicThermostatCard extends HTMLElement {
     if (this._config.unit_override) return this._config.unit_override;
     const entity = this._hass?.states[this._config.entity];
     return entity?.attributes?.unit_of_measurement ||
-           this._hass?.config?.unit_system?.temperature || '°C';
+      this._hass?.config?.unit_system?.temperature || '°C';
   }
 
   private _getStep(): number {
@@ -859,14 +865,14 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _getTrend(): 'rising' | 'falling' | 'stable' {
     if (this._tempHistory.length < 2) return 'stable';
-    
+
     const recent = this._tempHistory.slice(-5);
     if (recent.length < 2) return 'stable';
-    
+
     const first = recent[0].temp;
     const last = recent[recent.length - 1].temp;
     const diff = last - first;
-    
+
     if (diff > 0.3) return 'rising';
     if (diff < -0.3) return 'falling';
     return 'stable';
@@ -874,7 +880,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _getStatusText(hvacMode: string, hvacAction: string | undefined, currentTemp: number, targetTemp: number): string {
     if (hvacMode === 'off') return 'Система выключена';
-    
+
     if (hvacAction) {
       switch (hvacAction) {
         case 'heating': return 'Нагреваем';
@@ -894,7 +900,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _callService(domain: string, service: string, data: Record<string, unknown>) {
     const now = Date.now();
-    
+
     // Anti-flicker: debounce rapid calls
     if (now - this._lastServiceCall < 1500) {
       if (this._debounceTimeout) {
@@ -913,7 +919,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _handleTempChange(delta: number) {
     if (this._config.locked) return;
-    
+
     const entity = this._hass.states[this._config.entity];
     if (!entity) return;
 
@@ -931,7 +937,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _handleModeChange(mode: string) {
     if (this._config.locked) return;
-    
+
     this._callService('climate', 'set_hvac_mode', {
       entity_id: this._config.entity,
       hvac_mode: mode,
@@ -940,7 +946,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _handlePresetChange(preset: string) {
     if (this._config.locked) return;
-    
+
     this._callService('climate', 'set_preset_mode', {
       entity_id: this._config.entity,
       preset_mode: preset,
@@ -949,7 +955,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _handleFanModeChange(fanMode: string) {
     if (this._config.locked) return;
-    
+
     this._callService('climate', 'set_fan_mode', {
       entity_id: this._config.entity,
       fan_mode: fanMode,
@@ -958,7 +964,7 @@ class NeumorphicThermostatCard extends HTMLElement {
 
   private _handleQuickPreset(temp: number) {
     if (this._config.locked) return;
-    
+
     this._callService('climate', 'set_temperature', {
       entity_id: this._config.entity,
       temperature: temp,
@@ -991,7 +997,7 @@ class NeumorphicThermostatCard extends HTMLElement {
     if (!this._hass || !this._config) return;
 
     const entity = this._hass.states[this._config.entity];
-    
+
     // Handle unavailable entity
     if (!entity) {
       this._root.innerHTML = `
@@ -1027,12 +1033,12 @@ class NeumorphicThermostatCard extends HTMLElement {
     const trend = this._getTrend();
 
     // Determine effective mode for styling
-    const effectiveMode = hvacMode === 'off' ? 'off' : 
-                         (hvacMode === 'cool' ? 'cooling' : 'heating');
+    const effectiveMode = hvacMode === 'off' ? 'off' :
+      (hvacMode === 'cool' ? 'cooling' : 'heating');
 
     // Calculate progress for dial
-    const progress = targetTemp !== undefined 
-      ? ((targetTemp - minTemp) / (maxTemp - minTemp)) * 180 
+    const progress = targetTemp !== undefined
+      ? ((targetTemp - minTemp) / (maxTemp - minTemp)) * 180
       : 0;
 
     // Temperature difference
@@ -1103,24 +1109,24 @@ class NeumorphicThermostatCard extends HTMLElement {
     const sensorsHtml = this._config.sensors?.length
       ? `<div class="sensors-grid">
           ${this._config.sensors.slice(0, 4).map(sensorId => {
-            const sensor = this._hass.states[sensorId];
-            if (!sensor) return '';
-            return `
+        const sensor = this._hass.states[sensorId];
+        if (!sensor) return '';
+        return `
               <div class="sensor-item">
                 <div class="sensor-value">${sensor.state}${sensor.attributes.unit_of_measurement || ''}</div>
                 <div class="sensor-label">${sensor.attributes.friendly_name || sensorId.split('.').pop()}</div>
               </div>
             `;
-          }).join('')}
+      }).join('')}
         </div>`
       : '';
 
     // Trend indicator
     const trendHtml = trend !== 'stable'
       ? `<span class="trend-indicator ${trend}">
-          ${trend === 'rising' 
-            ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>'
-            : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'}
+          ${trend === 'rising'
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>'
+        : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>'}
         </span>`
       : '';
 
@@ -1180,11 +1186,11 @@ class NeumorphicThermostatCard extends HTMLElement {
               <p>Термостат</p>
             </div>
             <button class="mode-button ${effectiveMode}" data-action="cycle-mode">
-              ${effectiveMode === 'heating' 
-                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12c0-3 2.5-6 2.5-6S17 9 17 12a5 5 0 1 1-10 0c0-3 2.5-6 2.5-6S12 9 12 12Z"/></svg>'
-                : effectiveMode === 'cooling'
-                ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20m5.66-14.66-3.54 3.54m3.54 7.78-3.54-3.54M6.34 6.34l3.54 3.54m-3.54 7.78 3.54-3.54"/></svg>'
-                : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10"/></svg>'}
+              ${effectiveMode === 'heating'
+        ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 12c0-3 2.5-6 2.5-6S17 9 17 12a5 5 0 1 1-10 0c0-3 2.5-6 2.5-6S12 9 12 12Z"/></svg>'
+        : effectiveMode === 'cooling'
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2v20m5.66-14.66-3.54 3.54m3.54 7.78-3.54-3.54M6.34 6.34l3.54 3.54m-3.54 7.78 3.54-3.54"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0M12 2v10"/></svg>'}
             </button>
           </div>
 
@@ -1237,8 +1243,8 @@ class NeumorphicThermostatCard extends HTMLElement {
               </div>
               <span class="status-diff ${effectiveMode}">
                 ${tempDiff !== null && hvacMode !== 'off'
-                  ? (tempDiff > 0 ? `+${tempDiff.toFixed(1)}°` : tempDiff < 0 ? `${tempDiff.toFixed(1)}°` : '✓')
-                  : '—'}
+        ? (tempDiff > 0 ? `+${tempDiff.toFixed(1)}°` : tempDiff < 0 ? `${tempDiff.toFixed(1)}°` : '✓')
+        : '—'}
               </span>
             </div>
           </div>
@@ -1265,7 +1271,7 @@ class NeumorphicThermostatCard extends HTMLElement {
     this._root.querySelector('[data-action="cycle-mode"]')?.addEventListener('click', () => {
       const entity = this._hass.states[this._config.entity];
       if (!entity) return;
-      
+
       const modes = entity.attributes.hvac_modes || [];
       const currentIndex = modes.indexOf(entity.state);
       const nextMode = modes[(currentIndex + 1) % modes.length];
