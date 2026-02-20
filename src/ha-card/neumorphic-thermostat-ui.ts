@@ -146,6 +146,9 @@ class NeumorphicThermostatCard extends HTMLElement {
         --shadow-light: hsl(0, 0%, 100%);
         --error-color: hsl(0, 70%, 55%);
         --success-color: hsl(140, 70%, 45%);
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
         position: relative;
         z-index: 0;
         isolation: isolate;
@@ -154,7 +157,9 @@ class NeumorphicThermostatCard extends HTMLElement {
       .card {
         background: var(--neu-bg);
         border-radius: 20px;
-        padding: 16px;
+        padding: 20px;
+        width: 100%;
+        box-sizing: border-box;
         box-shadow: 
           6px 6px 12px var(--shadow-dark),
           -6px -6px 12px var(--shadow-light);
@@ -803,6 +808,8 @@ class NeumorphicThermostatCard extends HTMLElement {
 
       .card-wrapper {
         position: relative;
+        width: 100%;
+        box-sizing: border-box;
         overflow: hidden;
         isolation: isolate;
       }
